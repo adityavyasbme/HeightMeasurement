@@ -1,7 +1,7 @@
-# HeightMeasurement
+Height Measurement
+======================
 
-
-Content :
+## Files Content :
 
 -> checkerboard
 	--> detect3checkers 
@@ -18,5 +18,8 @@ Content :
 	--> coco
 	--> mpi
 
+## Table of content
+
+- [Contribution guidelines for this project](checkerboard/detect3checkers)
 
 

@@ -12,10 +12,7 @@ Height Measurement
 * distance_measurement
 	* Detect_Red_breifcase_distance
 * models
-	* body_25
 	* cascasdes
-	* coco
-	* mpi
 
 
 

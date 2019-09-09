@@ -226,4 +226,29 @@ def two_point_distance(a,b):
 
 
 
-
+"""
+APPLY_CASCADE can be used to apply different haar cascasdes
+Arg: 
+    original : image
+    cascade: location of the model
+Returns : 
+    Image if found else None
+    True if found else False
+"""
+def apply_cascade(original,cascade):
+#    height = np.size(original, 0)
+#    width = np.size(original, 1)
+    gray = cv2.cvtColor(original, cv2.COLOR_BGR2GRAY)
+    apply_cascade1 = cv2.CascadeClassifier(cascade)
+    try:
+        faces = apply_cascade1.detectMultiScale(gray, 1.3, 5)
+#        p,q=0,0
+        for i in faces:
+            (x,y,w,h)=i
+#            cv2.rectangle(original,(x,y),(x+w,y+h),(255,0,0),2)
+#            cv2.line(original,(int(x+w/2),0),(int(x+w/2),height),(255,255,255),1)
+#            p = x+(w/2)
+#            q = y+(h/2)
+        return original,True,faces
+    except:
+        return None,False,None

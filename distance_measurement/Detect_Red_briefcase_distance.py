@@ -10,43 +10,10 @@ import pyrealsense2 as rs
 import numpy as np
 # Import OpenCV for easy image rendering
 import cv2
+#importing global functions 
+from global_functions import rescale,thresholding,find_red
 
 
-def rescale(img,amount):
-    scale_percent = amount # percent of original size
-    width = int(img.shape[1] * scale_percent / 100)
-    height = int(img.shape[0] * scale_percent / 100)
-    dim = (width, height)
-    resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
-    return resized
-
-def thresholding(img):
-    lower_red = np.array([0,200,0]) #example value
-    upper_red = np.array([255,255,255]) #example value
-    mask = cv2.inRange(img, lower_red, upper_red)
-    img_result = cv2.bitwise_and(img, img, mask=mask)
-    return  img_result
-
-
-def find_red(image):
-#    image = cv2.imread(path)
-    hsv_img = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-    s=thresholding(hsv_img)
-    s= cv2.cvtColor(s, cv2.COLOR_HSV2BGR)
-    s= cv2.cvtColor(s, cv2.COLOR_BGR2GRAY)
-    ret, s= cv2.threshold(s, 0, 255, 0)
-    _,contours, hierarchy = cv2.findContours(s,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
-    cv2.drawContours(s, contours, -1, (0, 0, 0), 3)
-    areas = [cv2.contourArea(c) for c in contours]
-    max_index = np.argmax(areas)
-    cnt=contours[max_index]
-    x,y,w,h = cv2.boundingRect(cnt)
-    x,y,w,h = int(x*1.03),int(y*1.03),int(w*0.7),int(0.7*h)
-    cv2.rectangle(s,(x,y),(x+w,y+h),(255,255,255),5)
-    coordinatex,coordinatey = int(x+(w/2)),int(y+(h/2))
-    cv2.rectangle(image,(x,y),(x+w,y+h),(0,255,0),5)
-    cv2.circle(image,(coordinatex,coordinatey), 5, (0,255,255), -1)
-    return image,[x,y,w,h]
 
 def find_mean(stack):
     (rows,columns)=np.shape(stack)

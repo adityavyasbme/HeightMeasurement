@@ -8,6 +8,7 @@ Files :
 * detect3checkers --> Used To detect 3 checkerboards in the image and find the distance at each one of them
 * detect_3checkers_support_file --> Used to find thresholding values
 * checkerboardheightmeasurement --> This can be used to find the dimension of one checkerboard. It is kind of incomplete in sense that we have to modify the code as per the requirement.
+* detect_tilted_checkerheight.py --> This can be used to find the height when the checkerboard are not kept straight. 
 
 Note: 
 

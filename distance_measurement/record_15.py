@@ -18,7 +18,15 @@ import cv2
 # Importing pandas for data storage
 import pandas as pd
 
-
+"""
+mouse_callback can be used on opencv window to print the cordinate or to start some action.
+For e.g. : 
+    When event==1 -> left click is made and this will turn on the ix Flag. and opposite for event==2.
+    if ix is set True the event will happen and vice versa.
+    This can be used as a button to perform some function when working with videos in real time
+It was really helpful for me when I turned on the camera carrying the mouse and then I went in front of it and 
+I clicked on the mouse to capture images
+"""
 def mouse_callback(event, x, y, flags, params):
     global ix
     if event ==1:
@@ -137,17 +145,21 @@ try:
         
         color_image = np.asanyarray(color_frame.get_data()) #Getting final RGB frame
         
+        #TO STORE THE FIRST BLANK FRAME
         if count == 0:
             answer[count]=[depth_image,color_image] #0 is the first image. can be used for background subtraction
             count+=1
             continue
-
+        
+        #TO START STORING FRAMES WHEN THE SUBJECT IS IN THE DESIRED POSITION. YOU HAVE TO PRESS LEFT CLICK TO SET IX FLAG.
         if ix:
             color_image1,check,values=apply_cascade(color_image.copy(),'models/cascades/haarcascade_lefteye_2splits.xml')
             if check:
                 answer[count]=[depth_image,color_image]
                 count+=1
         cv2.imshow('W', rescale(color_image,90))
+        
+        #IF 15 FRAMES STORED BREAK THE LOOP. IF WE INCREASE THE VALUE TO SAY 100, THE FILE WOULD BE VERY LARGE AND WILL CRASH THE COMPUTER
         if len(answer)==15:
             break
 
@@ -156,8 +168,8 @@ finally:
     cv2.destroyAllWindows() #Remove all the windows
     out.release()
 
+#STORE THE  RECORDED DATA INTO PICKLE FILE
 import pickle    
 output = open('data/record_15.pkl', 'wb')
 pickle.dump(answer, output)
 output.close()
-

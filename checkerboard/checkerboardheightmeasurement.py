@@ -163,7 +163,10 @@ finally:
 ##Remove all the zero
 #answer.remove(answer[0])
 
-
+"""
+The remaining code is for measuring the height of one checker. 
+findcheckerheight and findcheckerheight2 are created to measure the height of checker of two different checkerboards.
+"""
 
 import statistics as stat
 print(stat.mean(answer))

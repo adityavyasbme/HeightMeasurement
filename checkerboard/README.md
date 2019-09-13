@@ -1,4 +1,4 @@
-# Height Measurement
+# Checkerboard Measurements 
 
 Imports :
  - global_functions
